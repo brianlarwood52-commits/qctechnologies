@@ -1,10 +1,7 @@
 [build]
   command = "npm run build"
-  # Don't set publish here - let Next.js plugin handle it
-  # The UI has publish=.next which conflicts, but we'll work around it
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
+  # Static export creates 'out' folder - simple and reliable!
+  publish = "out"
 
 [build.environment]
   NODE_VERSION = "20"

@@ -4,13 +4,14 @@ import withPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Static export - generates 'out' folder (like your previous sites)
+  output: 'export',
   // Optimize for production
   compress: true,
   poweredByHeader: false,
-  // Fix workspace root warning - only set in development
-  // On Netlify, let Next.js auto-detect the root
-  ...(process.env.NODE_ENV === 'development' ? { outputFileTracingRoot: process.cwd() } : {}),
   images: {
+    // Static export requires unoptimized images
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',

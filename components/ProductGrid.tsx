@@ -13,6 +13,7 @@ interface Product {
   category: string;
   brand?: string;
   slug?: string;
+  subcategory?: string;
 }
 
 interface ProductGridProps {
@@ -26,34 +27,33 @@ export default function ProductGrid({ category, subcategory }: ProductGridProps)
 
   useEffect(() => {
     setLoading(true);
-    const url = subcategory 
-      ? `/api/products?category=${category}&subcategory=${subcategory}`
-      : `/api/products?category=${category}`;
-    
-    // Use AbortController for cleanup
-    const controller = new AbortController();
-    
-    fetch(url, { 
-      signal: controller.signal,
-      cache: 'force-cache', // Cache the response
+    // Load from static JSON file (works with static export)
+    fetch('/data/products.json', { 
+      cache: 'force-cache',
     })
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         return res.json();
       })
       .then((data) => {
-        setProducts(data.products || []);
+        let products = data.products || [];
+        
+        // Apply filters client-side
+        if (category) {
+          products = products.filter((p: Product) => p.category === category);
+        }
+        if (subcategory) {
+          products = products.filter((p: Product) => p.subcategory === subcategory);
+        }
+        
+        setProducts(products);
         setLoading(false);
       })
       .catch((error) => {
-        if (error.name !== 'AbortError') {
-          console.error("Error loading products:", error);
-          setProducts([]);
-        }
+        console.error("Error loading products:", error);
+        setProducts([]);
         setLoading(false);
       });
-    
-    return () => controller.abort();
   }, [category, subcategory]);
 
   if (loading) {

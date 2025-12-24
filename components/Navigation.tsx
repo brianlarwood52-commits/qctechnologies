@@ -132,11 +132,7 @@ export default function Navigation() {
                             key={subcat.href}
                             href={subcat.href}
                             className="block px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-red-500 transition-colors border-b border-gray-800 last:border-b-0"
-                            onClick={(e) => {
-                              setOpenDropdown(null);
-                              // Ensure navigation works
-                              window.location.href = subcat.href;
-                            }}
+                            onClick={() => setOpenDropdown(null)}
                           >
                             {subcat.label}
                           </Link>

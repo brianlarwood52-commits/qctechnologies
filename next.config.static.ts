@@ -4,12 +4,9 @@ import withPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Optimize for production
-  compress: true,
-  poweredByHeader: false,
-  // Fix workspace root warning
-  outputFileTracingRoot: process.cwd(),
+  output: 'export', // Static export for cPanel
   images: {
+    unoptimized: true, // Required for static export
     remotePatterns: [
       {
         protocol: 'https',
@@ -20,24 +17,16 @@ const nextConfig: NextConfig = {
         hostname: 'localhost',
       },
     ],
-    // Optimize images
-    formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   // Add empty turbopack config to allow webpack-based plugins
   turbopack: {},
-  // Experimental features for better performance
-  experimental: {
-    optimizeCss: true,
-  },
 };
 
 const pwaConfig = withPWA({
   dest: "public",
   register: true,
   skipWaiting: true,
-  disable: false, // Always enabled - works in dev and prod
+  disable: false,
   buildExcludes: [/middleware-manifest\.json$/],
   sw: "sw.js",
 });

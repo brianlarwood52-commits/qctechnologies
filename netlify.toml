@@ -10,6 +10,7 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
   NODE_OPTIONS = "--max-old-space-size=4096"
+  NETLIFY_BUILD_DEBUG = "true"
 
 # Cache static assets
 [[headers]]

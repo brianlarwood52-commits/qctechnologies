@@ -131,9 +131,12 @@ export default function Navigation() {
                           <Link
                             key={subcat.href}
                             href={subcat.href}
-                            prefetch={true}
                             className="block px-4 py-3 text-gray-300 hover:bg-gray-800 hover:text-red-500 transition-colors border-b border-gray-800 last:border-b-0"
-                            onClick={() => setOpenDropdown(null)}
+                            onClick={(e) => {
+                              setOpenDropdown(null);
+                              // Ensure navigation works
+                              window.location.href = subcat.href;
+                            }}
                           >
                             {subcat.label}
                           </Link>
@@ -198,7 +201,6 @@ export default function Navigation() {
                           <Link
                             key={subcat.href}
                             href={subcat.href}
-                            prefetch={true}
                             onClick={() => setIsOpen(false)}
                             className="block py-2 text-sm text-gray-400 hover:text-red-500 transition-colors"
                           >

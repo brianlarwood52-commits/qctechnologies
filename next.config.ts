@@ -7,8 +7,9 @@ const nextConfig: NextConfig = {
   // Optimize for production
   compress: true,
   poweredByHeader: false,
-  // Fix workspace root warning
-  outputFileTracingRoot: process.cwd(),
+  // Fix workspace root warning - only set in development
+  // On Netlify, let Next.js auto-detect the root
+  ...(process.env.NODE_ENV === 'development' ? { outputFileTracingRoot: process.cwd() } : {}),
   images: {
     remotePatterns: [
       {

@@ -3,6 +3,9 @@
   # Static export creates 'out' folder - simple and reliable!
   publish = "out"
 
+# No redirects needed - Next.js static export generates actual HTML files
+# Each page has its own HTML file, so routing works automatically
+
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
